@@ -1,0 +1,16 @@
+[Unit]
+Description=A Python script for downloading log files from Incapsula.
+After=syslog.target
+After=network.target
+
+[Service]
+Type=simple
+User=$USER$
+Group=$GROUP$
+ExecStart=/usr/bin/python $PYTHON_SCRIPT$
+
+# Give a reasonable amount of time for the server to start up/shut down
+TimeoutSec=0
+
+[Install]
+WantedBy=multi-user.target

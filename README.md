@@ -36,9 +36,9 @@ The script has two dependencies that may require additional installation modules
 
 Both of these can be downloaded using apt-get, pip or any other installer, depending on the operating system in use.
 
-**Running the script as a service on Debian systems:** 
+**Running the script as a service on upstart systems - https://en.wikipedia.org/wiki/Upstart#Adoption** 
 
- - You can run the script as a service on Linux systems by using the configuration file - **linux_service_configuration/incapsulaLogs.conf**
+ - You can run the script as a service on upstart Linux systems by using the configuration file - **linux_service_configuration/incapsulaLogs.conf**
  -  You should modify the following parameters in the configuration file according to your environment: 
 	 1. **`$USER$`** - The user that will execute the script
 	 2. **`$GROUP$`** - The group name that will execute the script
@@ -48,3 +48,16 @@ Both of these can be downloaded using apt-get, pip or any other installer, depen
  - Run **`sudo ln -s /etc/init/incapsulaLogs.conf /etc/init.d/incapsulaLogs`**
  - Execute **`sudo service incapsulaLogs start`** 
  - You can use **`start/stop/status`** as any other Linux service
+
+ **Running the script as a service on systemd systems - https://en.wikipedia.org/wiki/Systemd#Availability** 
+
+ - You can run the script as a service on systemd Linux systems by using the configuration file - **linux_service_configuration/incapsulaLogs.service**
+ -  You should modify the following parameters in the configuration file according to your environment: 
+	 1. **`$USER$`** - The user that will execute the script
+	 2. **`$GROUP$`** - The group name that will execute the script
+	 3. **`$PYTHON_SCRIPT$`** - The path to the **`LogsDownloader.py`** file, followed by the parameters for execution of the script.
+ - On your system, copy the **incapsulaLogs.service** file and place it under the **/etc/systemd/system/** directory
+ - Run **`sudo systemctl daemon-reload`** to notify the system that there is a new service
+ - Run **`sudo systemctl enable incapsulaLogs.service`** to enable the service on boot
+ - Run **`sudo systemctl start  incapsulaLogs.service`** to start the service now
+ - Run **`systemctl status  incapsulaLogs.service`** to confirm that the service is running.
